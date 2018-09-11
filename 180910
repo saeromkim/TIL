@@ -1,0 +1,14 @@
+codepen 예제 실습
+djangogirls tutorial 완료
+js 중급 강의 파트4,5~
+
+#### MTV
+- Model:db관리
+- Template:유저가 보는 화면표현(html,css)
+- View:db와 템플릿을 연결
+#### AJAX+JSON 개념과 실습
+#### 크롬디버깅
+#### 익명함수: 함수의 이름 없이 정의 가능
+>function(){  
+> //내용  
+>}();
