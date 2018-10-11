@@ -5,3 +5,7 @@
 1. Set `layout_height` to `wrap_content` on both FrameLayout and TabWidget 
 2. Set FrameLayout's `android:layout_weight="1"`
 3. Set TabWidget's `android:layout_weight="0" (0 is default, but for emphasis, readability, etc)`
+
+3)메소드 추가 단축키
+`ctrl+O`
+
