@@ -51,7 +51,6 @@ function connectDB(){
 
 function createUserSchema(){
     UserSchema=mongoose.Schema({
-        id:{type:String, require:true, unique:true, 'default':' '},
         name:{type:String, 'default':' '},
         date:{type:String, 'default':' '},
         content:{type:String, 'default':' '}
@@ -71,6 +70,8 @@ router.route('/memo').post(function(req,res){
     var paramName=req.body.name||req.query.name;
     var paramDate=req.body.date||req.query.date;
     var paramContent=req.body.content||req.query.content;
+
+    console.log('요청 파라미터:'+paramName+','+paramDate+','+paramContent);
 
     if(database){
         addMemo(database, paramName, paramDate, paramContent, function(err, addedMemo){
@@ -104,19 +105,17 @@ router.route('/memo').post(function(req,res){
     }else{
         res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
 		res.write('<h2>데이터베이스 연결 실패</h2>');
-		res.end();
+    	res.end();
     }
-
    
 });
 
 app.use('/',router);
 
-var addMemo=function(database,id,name,date,content){
+var addMemo=function(database,name,date,content,callback){
     console.log('addMemo called');
 
     var memo=new UserModel({
-        "id":id,
         "name":name,
         "date":date,
         "content":content

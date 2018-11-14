@@ -33,10 +33,10 @@ var cors = require('cors');
 // mime 모듈
 var mime = require('mime');
 
-
-
 // 익스프레스 객체 생성
 var app = express();
+
+var mongoose=require('mongoose');
 
 // 포트 설정
 app.set('port', process.env.PORT || 3000);
@@ -51,6 +51,47 @@ app.use('/uploads', static(path.join(__dirname, 'uploads')));
 
 //클라이언트에서 ajax로 요청 시 CORS(다중 서버 접속) 지원
 app.use(cors());
+
+var MongoClient=require('mongodb').MongoClient;
+
+var database;
+
+var UserSchema;
+
+var UserModel;
+
+function connectDB(){
+	var databaseUrl='mongodb://localhost:27017/local';
+
+	console.log('tyring connect db');
+	mongoose.Promise=global.Promise;
+	mongoose.connect(databaseUrl);
+	database=mongoose.connection;
+
+	database.on('error',console.error.bind(console,'mongoose error.'));
+	database.on('open',function(){
+		console.log('database connected: '+databaseUrl);
+
+		createUserSchema();
+	});
+
+	database.on('disconnected',function(){
+		console.log('connection disconnected');
+		setInterval(connectDB,5000);
+	});
+}
+
+function createUserSchema(){
+	UserSchema=mongoose.Schema({
+		author:{type:String,'default':' '},
+		createDate:{type:String,'default':' '},
+		contents:{type:String, 'default':' '},
+		filename:{type:String, 'default':' '}
+	});
+
+	UserModel=mongoose.model("memo2",UserSchema);
+	console.log('memo2 정의함');
+}
 
 
 //multer 미들웨어 사용 : 미들웨어 사용 순서 중요  body-parser -> multer -> router
@@ -119,12 +160,40 @@ router.route('/process/save').post(upload.array('photo', 1), function(req, res) 
             console.log('업로드된 파일이 배열에 들어가 있지 않습니다.');
 	    }
 		
+        if(database){
+			addMemo(database, paramAuthor, paramContents, paramCreateDate,filename,function(err, addedMemo){
+				if(err){
+					console.error('사용자 추가 중 에러 발생 : ' + err.stack);
+                
+					res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+					res.write('<h2>사용자 추가 중 에러 발생</h2>');
+					res.write('<p>' + err.stack + '</p>');
+					res.end();
+					
+					return;
+				}
+
+				if(addedMemo){
+					console.log(addedMemo);
+
+					res.writeHead(200, {'Content-Type':'text/html;charset=utf8'});
+					res.write('<div><p>메모가 저장되었습니다.</p></div>');
+					res.write('<img src="/uploads/' + filename + '" width="200px">');
+					res.write('<div><p>/uploads/' + filename + '</p></div>');
+					res.write('<div><input type="button" value="다시 작성" onclick="javascript:history.back()"></div>');
+					res.end();
+				}else{
+					res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+					res.write('<h2>메모 추가  실패</h2>');
+					res.end();
+				}
+			});
+		}else{
+			res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+			res.write('<h2>데이터베이스 연결 실패</h2>');
+			res.end();
+		}
         
-        res.writeHead(200, {'Content-Type':'text/html;charset=utf8'});
-        res.write('<div><p>메모가 저장되었습니다.</p></div>');
-        res.write('<img src="/uploads/' + filename + '" width="200px">');
-        res.write('<div><input type="button" value="다시 작성" onclick="javascript:history.back()"></div>');
-        res.end();
 	} catch(err) {
 		console.dir(err.stack);
 		
@@ -137,6 +206,26 @@ router.route('/process/save').post(upload.array('photo', 1), function(req, res) 
 
 
 app.use('/', router);
+
+var addMemo=function(database,author,contents,createDate,filename,callback){
+	console.log('addMemo 호출됨');
+
+	var memo=new UserModel({
+		"author":author,
+		"contents":contents,
+		"createDate":createDate,
+		"filename":filename
+	});
+
+	memo.save(function(err,addedMemo){
+		if(err){
+			callback(err,null);
+			return;
+		}
+		console.log("메모 추가함");
+		callback(null,addedMemo);
+	});
+};
 
 
 // 404 에러 페이지 처리
@@ -153,6 +242,8 @@ app.use( errorHandler );
 // 웹서버 시작
 var server = http.createServer(app).listen(app.get('port'), function(){
   console.log('웹 서버 시작됨 -> %s, %s', server.address().address, server.address().port);
+
+  connectDB();
 });
 
 
