@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>메모장 예제</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+</head>
+<body>
+    <h1>나의 메모</h1>
+    <div>
+    <form method="post" action="/memo">
+    <table>
+        <tr>
+            <td><label>작성자</label><td></td>
+            <td><input type="text" name="name"></td>
+        </tr>
+        <tr>
+            <td><label>작성일시</label><td></td>
+            <td><input type="text" name="date"></td>
+        </tr>
+        <tr>
+            <td><label>내용</label><td></td>
+            <td><input type="text" name="content"></td>
+        </tr>
+    </table>
+    </div>
+    <p>
+    <input type="submit" value="저장" name="submit">
+    <input type="submit" value="닫기" name="close">
+    </p>
+    </form>
+</body>
+</html>
