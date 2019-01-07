@@ -256,10 +256,61 @@ fuction<void()> print=[]{
 function<void(int)> print2=[](int x){
 };
 
-//인자 2개와 리턴티입이 int이므로
+//인자 2개와 리턴타입이 int이므로
 function<int(int,int)> sum =[](int x, int y) {
   return x+y;
+}ㅌ
+#### [#10870 피보나치 수 5](https://www.acmicpc.net/submit/10870)
+- 피보나치 수를 식으로 써보면 Fn = Fn-1 + Fn-2 (n>=2)가 된다.
+- 첫째 줄에 n번째 피보나치 수를 출력한다.
+```c
+#include <iostream>
+#include <functional>
+using namespace std;
+int main(){
+    int n;
+    cin >> n;
+    function<int(int)> f=[&](int n){
+        if(n<=1) return n;
+        else return f(n-1) + f(n-2);
+    };
+    cout << f(n) << '\n';
+    return 0;
 }
+```
+#### [#10869 사칙연산]()
+- 다섯가지 사칙연산을 하는 함수를 람다로 만든 후 벡터에 넣어준다.
+```c
+#include <iostream>
+#include <functional>
+#include <vector> //꼭 해야함
+using namespace std;
+int main(){
+    int a,b;
+    cin >> a >> b;
+    vector<function<int(int,int)>> d;
+    d.push_back([](int x,int y){
+        return x+y;
+    });
+    d.push_back([](int x,int y){
+        return x-y;
+    });
+    d.push_back([](int x,int y){
+        return x*y;
+    });
+    d.push_back([](int x,int y){
+        return x/y;
+    });
+    d.push_back([](int x,int y){
+        return x%y;
+    });
+    
+    //auto를 이용
+    for(auto &f : d){
+        cout << f(a,b) << '\n';
+    }
+}
+```
 
 
 
