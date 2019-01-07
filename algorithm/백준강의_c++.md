@@ -1,4 +1,7 @@
-백준 온라인 강의 C++ 강의 정리 https://code.plus/lecture/2
+백준 온라인 강의 
+프로그래밍 대회에서 사용하는 C, C++, STL
+챕터 2 C++ 강의 정리 https://code.plus/lecture/2
+
 ### 1. STL(Standard Template Library)
 - C++이 가지는 프로그래밍 언어로서의 특징 중 하나로 일반화 프로그래밍을 들 수 있따.
 - 알고리즘에 그 중점을 둔다
