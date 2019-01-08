@@ -3,3 +3,17 @@
 
 ##string
 ### 문자열 생성방법
+```c
+string s1;
+
+char c[] = "c string";
+string s2(c);
+string s3 = c;
+
+c[1]='\0';
+
+string s4(c);
+string s5 = c;
+
+string s6(10, '!');
+string s7 = "abcdefg";
