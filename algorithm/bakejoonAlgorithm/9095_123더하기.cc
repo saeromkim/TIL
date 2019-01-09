@@ -32,3 +32,25 @@ int main(){
 	return 0;
   
 }
+
+
+//블로그에서 찾은 점화식을 직접적으로 이용하는 방법
+#include <iostream>
+using namespace std;
+int d[11];
+int main(){
+	int n, t;
+	cin >> t;
+	
+	for(int i=0; i<t; t++){
+		cin>>n;
+		
+		d[1]=1, d[2]=2, d[3]=4; //이렇게 테스트 케이스를 미리 입력해두면 그 뒤부터는 알아서 계산하는 건가?
+		
+		for(int i=4; i<=n; i++)
+			d[i]=d[i-3]+d[i-2]+d[i-1];
+			
+		cout<<d[n]<<'\n';
+	}
+	return 0;
+}
