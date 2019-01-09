@@ -35,10 +35,13 @@ int main(){
 2. 닫는 괄호가 있는데 없앨 스택이 없는 경우 -> 짝이 맞는 여는 괄호를 찾지 못함
 */
 ```c
-string valid(string s) {
+#include <iostream>
+#include <string>
+using namespace std;
+string valid(string s){
     int cnt = 0;
-    for (int i=0; i<s.size(); i++) {
-        if (s[i] == '(') {
+    for(int i=0; i<s.size(); i++) {
+        if(s[i] == '(') {
             cnt += 1;
         } else {
             cnt -= 1;
@@ -53,13 +56,13 @@ string valid(string s) {
         return "NO";
     }
 }
-int main() {
+int main(){
     int t;
-    cin >> t;
-    while (t--) {
+    cin>>t;
+    while(t--) {
         string s;
         cin >> s;
-        cout << valid(s) << '\n'; //여기서 '\'를 '/'라고 해서 틀렸다....!!!ㅠㅠㅋㅋㅋㅋㅋ어이가없군
+        cout << valid(s) << '\n';
     }
     return 0;
 }
