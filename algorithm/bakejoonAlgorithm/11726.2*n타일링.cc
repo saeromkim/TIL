@@ -25,3 +25,24 @@ int main(){
   
   return 0;
 }
+
+
+/*
+2*n타일링2는 기존 문제에 2*2타일이 추가된 것이다. 따라서 d[n-2]인 상황이 두배가 일어나는 것이다. 
+*/
+#include <cstdio>
+using namespace std;
+int d[1001];
+int main(){
+  int n;
+  scanf("%d",&n);
+  d[0]=1;
+  d[1]=1;
+  for(int i=2; i<=n; i++){
+  	d[i]=d[i-1]+2*d[i-2]; //2를 
+  	d[i]%=10007;
+  }
+  printf("%d\n",d[n]);
+  
+  return 0;
+}
