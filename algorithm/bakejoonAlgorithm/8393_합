@@ -1,0 +1,38 @@
+/*
+초간단한 문제지만 매우매우매우 해멨다.
+while문을 쓰니 sum이 초기화되지 않아 틀렸다고 나온다는데...
+에디터로는 잘돌아가는데 이유를 모르겠다..ㅠㅠ
+
+#include <iostream>
+using namespace std;
+int main(){
+	int n;
+	int sum,i=0;
+	cin >> n;
+	
+	while(n--){
+		i++;
+		sum+=i;
+	}
+
+	cout << sum;
+	return 0;
+}
+
+결국 아래처럼 for문으로 풀었다
+*/
+
+#include <iostream>
+using namespace std;
+int main(){
+	int n;
+	int sum=0;
+	cin >> n;
+	
+	for(int i=1; i<=n; i++){
+		sum+=i;
+	}
+
+	cout << sum;
+	return 0;
+}
