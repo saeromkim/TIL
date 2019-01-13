@@ -24,10 +24,10 @@ int main(){
 		 }
 	 }
 	 
-	int ans = d[1]; 
+	int ans = d[1]; //d[1]에 1이 들어감
 
-    for (int i=2; i<=n; i++) { 
-        if (ans < d[i]) { 
+    for (int i=2; i<=n; i++) { //두번째 부터 비교 시작
+       if (ans < d[i]) { //for문을 반복하면서, d[i]의 가장 큰 값을 ans에 저장한다.
             ans = d[i];
         }
     }
