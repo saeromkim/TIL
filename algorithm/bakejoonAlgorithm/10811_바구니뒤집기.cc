@@ -15,6 +15,11 @@ int main() {
 	for(int i=0; i<n; i++){
 		fill(a.begin()+i, a.end(), i+1); //a = {1,2,3,4,5} , 여기 범위 값 유의
 	}
+// //	fill을 사용하지 않고도 풀 수 있다. 이건 정답. 
+// 	for (int i=0; i<n; i++) {
+//         	a[i] = i+1;
+//    	}
+	
 	int i,j;
 	while(m--){
 		cin >> i >> j ; //1 2 
