@@ -19,6 +19,7 @@ int main(){
 	int ans=2147483647;
 	
 	do{
+		//if(d[0] != 1) break; 다른방법 1. 1로 시작하지 않으면 break
 		bool ok=true;
 		int sum=0;
 		for(int i=0; i<n-1; i++){ //n=4, 0 1 2 만큼. 세번 돔
@@ -36,7 +37,7 @@ int main(){
 		} 
 
 	}while(next_permutation(d.begin(),d.end()));
-	//while(next_permutation(d.begin()+1,d.end())); 원래 도시로 돌아오는 경우의 수 1을 뺄 수 있다. 시간이 1/10로 준다...!!!
+	//while(next_permutation(d.begin()+1,d.end())); 다른 방법 2.원래 도시로 돌아오는 경우의 수 1을 뺄 수 있다. 시간이 1/10로 준다...!!!
 	
 	cout << ans <<'\n';
 	return 0;
