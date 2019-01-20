@@ -1,3 +1,32 @@
+//정답
+//재귀함수를 이용함. 백준 
+#include <iostream>
+#include <algorithm>
+using namespace std;
+bool c[10]; int a[10];
+void go(int index, int n, int m){
+	if(index==m){
+		for(int i=0; i<m; i++){
+			cout << a[i]<<'\n';
+		}
+		return;
+	}
+	for(int i=1; i<=n; i++){
+		if(c[i]) continue;
+		c[i]=true; a[index]=i;
+		go(index+1,n,m);
+		c[i]=false;
+	}
+}
+int main(){
+	int n,m;
+	cin >> n>>m;
+	go(0,n,m);
+	
+	return 0;
+}
+
+//처음 풀었을 때
 //도저히 모르겠어서 검색후 이해함
 //방문한 곳을 체크하여 그곳을 제외하고, 재귀함수를 사용하여 순서대로 출력한다.
 #include <iostream>
