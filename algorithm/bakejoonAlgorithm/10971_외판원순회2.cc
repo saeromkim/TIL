@@ -36,6 +36,7 @@ int main(){
 		} 
 
 	}while(next_permutation(d.begin(),d.end()));
+	//while(next_permutation(d.begin()+1,d.end())); 원래 도시로 돌아오는 경우의 수 1을 뺄 수 있다.
 	
 	cout << ans <<'\n';
 	return 0;
