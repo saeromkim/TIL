@@ -54,3 +54,30 @@ int main(){
 	}
 	return 0;
 }
+
+//재귀함수를 이용해서 푸는 방법 - 이것도 중요함!
+#include <iostream>
+using namespace std;
+int go(int sum, int goal){
+	if(sum>goal) return 0;
+	if(sum==goal) return 1;
+	int now;
+	if(sum<goal){
+		for(int i=1; i<=3; i++){
+			now+=go(sum +i, goal); //1,2,3 을 사용하는 방법에 따라..
+		}
+	}
+	return now;
+}
+int main() {
+	int t;
+	cin >> t;
+	while(t--){
+		int n;
+		cin >> n;
+		cout << go(0,n) <<'\n'; 
+	}
+	return 0;
+}
+
+
