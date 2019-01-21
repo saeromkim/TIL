@@ -1,5 +1,7 @@
 //정답
 //재귀함수를 이용함. 백준 
+// m이 2일 때, _ _ 를 자리수라고 쳤을 때 첫번째 자리를 i=1일때 재귀~~ i=2일때 재귀~~ 이런식으로 돌림
+//첫번째 자리 정하고, 
 #include <iostream>
 #include <algorithm>
 using namespace std;
@@ -12,7 +14,7 @@ void go(int index, int n, int m){
 		return;
 	}
 	for(int i=1; i<=n; i++){
-		if(c[i]) continue;
+		if(c[i]) continue; 
 		c[i]=true; a[index]=i;
 		go(index+1,n,m);
 		c[i]=false;
