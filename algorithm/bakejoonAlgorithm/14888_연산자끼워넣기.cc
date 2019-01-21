@@ -44,5 +44,5 @@ int main() {
 	cout << vmin <<'\n';
 	
 	return 0;
-}
+} 
 
