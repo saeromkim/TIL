@@ -10,6 +10,9 @@ using namespace std;
 
 int main() {
 	char s[101]; //c에서는 char사용한다. 배열처럼 쓸 수 있다.
+//while(scanf("%10s",s)){ 
+//문자열을 읽는 데 성공하면 반환값이 1이고 EOF에 걸리면 반환값이 음수라
+//그냥 while문에 넣으면 무조건 true가 돼서 무한 루프가 된다
   while(scanf("%10s",s)==1){ //10개씩 받았을때
 		printf("%s\n",s); //출력한다.
 	}
