@@ -1,0 +1,25 @@
+/*
+	b진법인 n을 10진법으로 변환하려면 b^k를 곱하면서 더하면 된다.
+	(10진법 만드는 방법 알지?)
+  b^k는 math의 pow 함수를 쓰면 편하다
+*/
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <cmath>
+using namespace std;
+int main() {
+	string s;
+	int n,b;
+	cin>>s>>b;
+	long long ans=0;
+	for(int i=0; i<s.size(); i++){
+		if(s[i] >='0' && s[i] <='9'){
+			ans += pow(b,s.size()-i-1)*(s[i]-'0');
+		}else{
+			ans += pow(b,s.size()-i-1)*(s[i]+10-'A');
+		}
+	}
+	cout<<ans;
+	return 0;
+}
