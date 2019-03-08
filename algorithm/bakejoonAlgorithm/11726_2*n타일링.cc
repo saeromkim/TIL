@@ -9,6 +9,32 @@
 - D[n] = D[n-1] + D[n-2]
 - D[0]은 아무것도 놓지 않는 방법이 1개 있으므로 0이 아니라 1이다.
 */
+//top-down으로 혼자 푼 코드
+#include <iostream>
+using namespace std;
+int d[1001];
+int mod = 10007;
+int dp(int n){
+	if(n==1) return 1;
+	if(n==2) return 2; 
+	if(d[n]>0) return d[n];
+	if(n>2){
+		d[n] = dp(n-2) + dp(n-1);
+	}
+	return d[n]%mod;
+}
+
+int main() {
+	int n;
+	cin>>n;
+	d[0] = 1;
+	cout<<dp(n);
+	return 0;
+}
+
+
+
+//백준코드
 #include <cstdio>
 using namespace std;
 int d[1001];
