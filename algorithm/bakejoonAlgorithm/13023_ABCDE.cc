@@ -1,44 +1,51 @@
 //백준코드랑 다르게 풀었다. 이해가 갈동말동
-//dfs로 탐색하면서 깊이가 5일때 1을 출력한다.
+/*
+	문제 : A - B - C - D - E
+	즉, 깊이가 5인 경로가 존재하는지 구하는 문제
+	dfs로 탐색하면서 COUNT 해준다.
+*/
 #include <iostream>
 #include <vector>
 using namespace std;
-vector<int> a[2001];
-bool check[2001];
+vector<int> a[2000];
+bool check[2000];
 
-bool dfs(int depth, int n){ //깊이, 정점
-	if(depth == 5){ //깊이가 5일 때 출력
+//3.dfs 탐색하면서 깊이가 5일때 true 리턴하기
+bool dfs(int depth, int now){
+	if(depth == 5){
 		return true;
 	}
-	check[n] = true;
-	for(int i=0; i<a[n].size(); i++){
-		int next = a[n][i]; //다음 정점
-		if(check[next]) continue; //방문했으면 건너뛰기
-		if(dfs(depth + 1, next)){ //dfs 재귀
-			return true;
-		}
+	check[now] = true;
+	for(int i=0; i<a[now].size(); i++){ //각 정점과 연결되는 모든 정점 방문
+		int next = a[now][i];
+		if(check[next]) continue;
+		if(dfs(depth + 1, next)){ //다음 정점 방문
+			return true; //깊이가 5인 정점인 경우
+		};
 	}
-	check[n] = false;
+	check[now] = false;
 	return false;
-	
 }
 
-int main(void) {
-	int n,m; 
+int main() {
+	int n, m;
 	cin>>n>>m;
+	//1.인접 리스트로 입력받기
 	for(int i=0; i<m; i++){
 		int u,v;
 		cin>>u>>v;
 		a[u].push_back(v);
 		a[v].push_back(u);
 	}
-	for(int i=0; i<n; i++){ //모든 정점에서 탐색을 시작해본다
+	//2.모든 정점에서 탐색하기(시작은 깊이 1, 시작 정점 i)
+	for(int i=0; i<n; i++){
 		if(dfs(1,i)){
 			cout<<"1";
-			return 0; //있으면 출력하고 리턴
+			return 0; //정답 찾으면 리턴하고 함수 실행 끝
 		}
 	}
 	cout<<"0";
+	return 0;
 }
 
 //백준코드. 본적 없음
