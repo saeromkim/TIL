@@ -1,4 +1,68 @@
 /*
+    처음에 백준코드보고 큐를 이용해서 풀었는데 이번에는 배열로 풀었다.
+    다시 푸니까 처음 풀었을때 보다 훨씬 쉽게 느껴졌음
+	<#11724 연결요소의 개수> 문제 방법과 같다.
+    x,y좌표로 바꿔서 모든 방향에 대해 dfs하면 된다.
+    
+    (주의)cin 사용하면 10101100 같은 문자열을 
+    통째로 하나의 수로 인식하기 때문에 scanf를 사용한다. 
+    이거 때문에 삽질 오지게 했네 ㅠㅠ휴
+*/
+
+#include <iostream>
+#include <algorithm>
+using namespace std;
+int a[25][25];
+bool check[25][25];
+int x[] = {0,0,1,-1};
+int y[] = {1,-1,0,0};
+int group = 0; //단지 번호
+int house[25*25]; //단지 내 집의 수
+int n;
+
+void dfs(int i, int j){ 
+    check[i][j] = true;
+    house[group]++; //현재 단지의 집의 수 증가
+    for(int k=0; k<4; k++){ //상하좌우 좌표 탐색
+        int dx = i + x[k];
+        int dy = j + y[k];
+        if(dx<n && dx>=0 && dy<n && dy>=0){ //범위체크
+            if(check[dx][dy] == false && a[dx][dy] == 1){
+                dfs(dx, dy);
+            }
+        }
+    }
+}
+
+int main(){
+    //1. 2차원 배열 입력받기
+    cin>>n;
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            scanf("%1d",&a[i][j]);
+        }        
+    }
+    //2.단지 개수 구하기
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            if(check[i][j] == false && a[i][j] == 1){
+                dfs(i,j);
+                group++; //한 연결요소 탐색 끝날때마다 단지 수 증가
+            }
+        }
+    }
+    cout<<group<<"\n";
+
+    //3. 단지 내 집의 수 구하기
+    sort(house, house + group); //단지 번호 순대로 출력하기 위해 정렬
+    for(int i=0; i<group; i++){
+        cout<<house[i]<<"\n";
+    }
+    return 0;
+}
+
+
+/*
     BFS를 이용해서 푸는 문제다.
     체감상 어려웠다. BFS배우고 처음 푸는 문제라 더 그랬던 것 같다.
     정답코드 한줄한줄 주석을 달아서 주석만 보고 다시 혼자 코드를 짰다.
